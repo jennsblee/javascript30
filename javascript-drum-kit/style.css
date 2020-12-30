@@ -1,0 +1,11 @@
+.key {
+  boder: 4px solid black;
+  transition: all 0.07s;
+  color: white;
+}
+
+.playing {
+  transform: scale(1.1);
+  border-color: #ffc600;
+  box-shadow: 0 0 10px #ffc600;
+}
