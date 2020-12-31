@@ -7,23 +7,82 @@
 </head>
 <body>
 
-
   <div class="keys">
     <div data-key="65" class="key">
       <kbd>A</kbd>
-      <span class="sound">clap</span>
+      <span class="sound">chime</span>
     </div>
     <div data-key="83" class="key">
       <kbd>S</kbd>
-      <span class="sound">hihat</span>
+      <span class="sound">boing</span>
     </div>
     <div data-key="68" class="key">
       <kbd>D</kbd>
-      <span class="sound">kick</span>
+      <span class="sound">baby</span>
     </div>
     <div data-key="70" class="key">
       <kbd>F</kbd>
-      <span class="sound">openhat</span>
+      <span class="sound">ding</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">bubbles</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">buzzer</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">beep</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">champagne</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">clang</span>
     </div>
   </div>
+
+  <audio data-key="65" src="sounds/chime_down.wav"></audio>
+  <audio data-key="83" src="sounds/boing.wav"></audio>
+  <audio data-key="68" src="sounds/baby.wav"></audio>
+  <audio data-key="70" src="sounds/boxing_bell.wav"></audio>
+  <audio data-key="71" src="sounds/bubbling.wav"></audio>
+  <audio data-key="72" src="sounds/buzzer3.wav"></audio>
+  <audio data-key="74" src="sounds/car_horn.wav"></audio>
+  <audio data-key="75" src="sounds/champagne.wav"></audio>
+  <audio data-key="76" src="sounds/clang.wav"></audio>
+
+  <script>
+
+    function playSound(e) {
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
+      const key = document.querySelector(`.key[data-key="${e.keyCode}"]`)
+
+      if(!audio) return; //stop function from running all together
+      audio.currentTime = 0; // rewind to the start of the element so can play over and over again
+
+      audio.play();
+      key.classList.add('playing');
+
+      // transition end event
+    };
+
+
+    function removeTransition(e) {
+      if(e.propertyName !== 'transform') return; // skip if it is not a transform
+      this.classList.remove('playing');
+    }
+
+    const keys = document.querySelectorAll('.key');
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+    // cannot do keys.addEventListener('transitionend'); because you cannot listen to all items in a Node List (aka an array) - you must explicitly loop over them
+
+    window.addEventListener('keydown', playSound);
+
+  </script>
 </body>
