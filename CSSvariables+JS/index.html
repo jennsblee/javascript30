@@ -51,5 +51,22 @@
       }
     </style>
 
+    <script>
+      /* NodeList and an array's __proto__ (prototype: methods that can be used) are different */
+
+      const inputs = document.querySelectorAll('.controls input');
+
+      function handleUpdate() {
+        const suffix = this.dataset.sizing || '';
+        /* .dataset takes everything that has data- in an object */
+        /* || '' because base color does not have data-sizing which will trigger undefined */
+        document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+      }
+
+      inputs.forEach(input => input.addEventListener('change', handleUpdate));
+      inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+
+    </script>
+
   </body>
 </html>
