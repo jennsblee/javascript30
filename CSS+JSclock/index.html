@@ -10,21 +10,52 @@
     <div class="clock-face">
       <div class="hand hour-hand"></div>
       <div class="hand minute-hand"></div>
-      <div class="hand second-hand"></div>
+      <div class="hand second-hand" style="transform: rotate(20deg);"></div>
     </div>
   </div>
 
   <style>
     html {
-      background: url(https://images.unsplash.com/photo-1455651512878-0ddbb4c4d0a5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80);
+      background: linear-gradient(315deg, rgba(72,84,97,0.5) 0%, rgba(40, 49, 59,0.5) 74%), url(https://images.unsplash.com/photo-1551030797-46c120009b82?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTIzfHxmcnVpdHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60);
+      background-repeat:no-repeat;
+      height: 100%;
       background-size: cover;
+      background-position: center center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    hand {
+    body {
+      width: 300px;
+      height: 300px;
+    }
+
+    .clock {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 7px #ffb26b solid;
+      box-shadow: 0 0 10px #ff7b54;
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hand {
       width: 50%;
       height: 6px;
-      background: black;
+      background: #ffd56b;
+      box-shadow: 0 0 3px #e6b566;
       position: absolute;
+      top: 50%;
+      transform-origin: 100%; /* hands rotate on right end side */
+      transform: rotate(90deg); /* starts pointing at 9 o'clock at default so rotate 90 degrees to start at 12 */
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0, 2.7, 1, 1); /* ticking feature */
     }
   </style>
 
