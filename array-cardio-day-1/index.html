@@ -17,7 +17,69 @@
       { first: 'Max', last: 'Planck', year: 1858 , passed: 1947 }
     ];
 
-    const people = ['Abagnale, Frank', 'Abbey, Edward', 'Abel, Reuben', 'Ace, Jane', 'Adams, Abigail', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Duff, Hilary', 'Dumas, Alexandre', 'Dunst, Kirsten', 'Harris, Sam', 'Harrison, George', 'Hart, Owen', 'Harvey, Paul', 'Hathaway, Anne', 'Lloyd, Seth', 'Locke, John', 'Lohan, Lindsay', 'Sparber, Max', 'Spears, Britney', 'Speijk, Jan van', 'Spence, Gerry', 'Tudor, John', 'Tugia, Manasa', 'Tuibua, Esala', 'Turner, Ted', 'Vance, Jack', 'Van Gogh, Vincent', 'Walken, Christopher', 'Walker, Murray', 'Wall, Larry', 'Wallace, Alan', 'Warren, Robert Penn', 'Washington, Booker', 'Zacharek, Stephanie', 'Zappa, Frank', 'Zawinski, Jamie'];
+    const people = ['Warren, Robert Penn', 'Abagnale, Frank', 'Abel, Reuben', 'Zawinski, Jamie', 'Ace, Jane', 'Adams, Abigail', 'Berlin, Irving', 'Washington, Booker', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Duff, Hilary', 'Dumas, Alexandre', 'Dunst, Kirsten', 'Harris, Sam', 'Harrison, George', 'Hart, Owen', 'Harvey, Paul', 'Lloyd, Seth', 'Locke, John', 'Lohan, Lindsay', 'Sparber, Max', 'Speijk, Jan van', 'Abbey, Edward', 'Spence, Gerry', 'Tudor, John', 'Tugia, Manasa', 'Tuibua, Esala', 'Turner, Ted', 'Vance, Jack', 'Van Gogh, Vincent', 'Spears, Britney', 'Walken, Christopher', 'Walker, Murray', 'Wall, Larry', 'Hathaway, Anne', 'Wallace, Alan', 'Zacharek, Stephanie', 'Zappa, Frank'];
+
+    // 1. filter the list of inventors for those who were born in the 1500's
+    const fifteen = inventors.filter(inventor => {
+      if(inventor.year >= 1500 && inventor.year <= 1599) {
+        return true;
+      }
+    });
+    // const fifteen = inventors.filter(inventor => if(inventor.year >= 1500 && inventor.year <= 1599))
+    console.table(fifteen);
+
+    // 2. give us an array of the inventory first and last names
+    const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+    console.log(fullNames);
+
+    // 3. sort the inventors by birthdate, oldest to youngest
+    const sortedInventors = inventors.sort(function(first, second) {
+      if(first.year > second.year) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+
+    // const sortedInventors = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
+    console.log(sortedInventors);
+
+    // 4. how many years did all the inventors live?
+    const totalYears = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed - inventor.year);
+    }, 0); // shows that total is 0 the first time around and not undefined
+    console.log(totalYears);
+
+    // 5. sort the inventors by years lived
+    const longestLived = inventors.sort((a, b) => (a.passed - a.year) > (b.passed - b.year) ? -1 : 1);
+    console.log(longestLived);
+
+    // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+    // const category = document.querySelector('.mw-category');
+    // const links = Array.from(category.querySelectorAll('a')); // querySelector returns a NodList that cannot do #map so need to convert it to an array
+    // const de = links
+    //               .map(link => link.textContent)
+    //               .filter(name => name.includes('de'));
+
+    // 7. sort the people alphabetically by last name
+    const sortedPeople = people.sort((a, b) => a > b ? 1 : -1);
+    console.log(sortedPeople);
+    // const [aLast, aFirst] = lastOne.split(', ');
+    // const [bLast, bFirst] = nextOne.split(', ');
+    // return aLast > bLast ? 1 : -1;
+
+    // 8. sum up the instances of each of these
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck']
+
+    const transportation = data.reduce((object, item) => {
+      if(!object[item]) {
+        object[item] = 0;
+      }
+      object[item]++;
+      return object;
+    }, {});
+    console.log(transportation);
+
   </script>
 </body>
 </html>
