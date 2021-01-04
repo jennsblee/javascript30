@@ -9,10 +9,45 @@
   <form class="search-form">
     <input type="text" class="search" placeholder="City or State">
     <ul class="suggestions">
-      <li>Filter for a city</li>
-      <li>or a state</li>
+      <li>Filter for a city or a state</li>
     </ul>
   </form>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
+    body {
+      background: #7c9473;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+    }
+    form {
+      width: 500px;
+      margin: 0 auto;
+    }
+    input {
+      padding: 10px;
+      width: 500px;
+      height: 30px;
+      font-size: 20px;
+      font-family: 'Playfair Display', serif;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #e8eae6;
+      border: 1px #cdd0cb solid;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .hl {
+      background: #cfdac8;
+    }
+  </style>
+
   <script>
     const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json'
     const cities = [];
