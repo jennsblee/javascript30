@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+  <canvas id="draw" width="800" height="800"></canvas>
+  <script>
+    const canvas = document.querySelector('#draw'); // block of actual pixels and draw on it
+    // do not draw on the html directly but on context
+    const ctx = canvas.getContext('2d'); // ctx = context can be 2d or 3d (video games and 3d rendering)
+    // default canvas size is 800 x 800 as stated in html so resize if needed
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    ctx.strokeStyle = "#BADA55"; // color of line
+    ctx.lineJoin = "round"; // when line meets another line, rounded or squared off?
+    ctx.lineCap = "round"; // end of the line squared off? or rounded around the corner?
+    ctx.lineWidth = 100;
+    ctx.globalCompositeOperation = 'luminosity'; // colors will blend as lines overlap (multiply)
+
+    let isDrawing = false; // set it to false so it only draws when clicked down
+    // when drawing a line you need starting X & Y and ending X & Y
+    let lastX = 0;
+    let lastY = 0;
+    // h = hue(color) s = saturation(brightness) l = lightness(white to black)
+    let hue = 0;
+    let direction = true;
+
+    //called whenever the mouse is moved on canvas
+    function draw(e) {
+      if(!isDrawing) return; // stop function from running when they are not moused down
+      console.log(e);
+      ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+      ctx.beginPath();
+      // start from
+      ctx.moveTo(lastX, lastY);
+      // go to
+      ctx.lineTo(e.offsetX, e.offsetY);
+      ctx.stroke();
+      lastX = e.offsetX;
+      lastY = e.offsetY;
+      // [lastX, lastY] = [e.offsetX, e.offsetY]; set them at the same time
+      hue++; // increment hue by 1 every time the line is drawn (line is drawn horizontally across line width when mouse down)
+      if (hue >= 360) {
+        hue = 0;
+      }
+      if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+        direction = !direction;
+      }
+      if (direction) {
+        ctx.lineWidth++;
+      } else {
+        ctx.lineWidth--;
+      }
+    }
+    canvas.addEventListener('mousedown', (e)=> {
+      isDrawing = true;
+      [lastX, lastY] = [e.offsetX, e.offsetY]; // as soon as mouse down, before mouse moves, lastX & lastY updated to that point of mouse down
+    });
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', ()=> isDrawing = false);
+    canvas.addEventListener('mouseout', ()=> isDrawing = false); // if clicked and mouse exits screen, mouse is still down when you come back because mouse up was never triggered within canvas.
+
+  </script>
+
+  <style>
+    html, body {
+      margin: 0;
+    }
+  </style>
+</body>
+</html>
