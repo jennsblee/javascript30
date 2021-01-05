@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const people = [
+      { name: 'Wes', year: 1988 },
+      { name: 'Kate', year: 1986 },
+      { name: 'Irv', year: 1970 },
+      { name: 'Lux', year: 2015 }
+    ];
+
+    const comments = [
+      { text: 'Love this!', id: 523423 },
+      { text: 'This is wonderful!', id: 823423 },
+      { text: 'You are the best', id: 2039842 },
+      { text: 'Nice Nice Nice!', id: 542328 }
+    ];
+
+    // Is at least one person 19? Array.prototype.some()
+    const isAdult = people.some(person => {
+      const currentYear = (new Date()).getFullYear();
+      return (currentYear - person.year) >= 19;
+    });
+    console.log({isAdult}); //curly brackets show name of the variable + value
+
+    // Is everyone 19? Array.prototype.every()
+    const allAdults = people.every(person => {
+      const currentYear = (new Date()).getFullYear();
+      return (currentYear - person.year) >= 19;
+    });
+    console.log({allAdults});
+
+    // Find the comment with the ID of 823423 Array.prototype.find() = like filter but returns just the one you are looking for
+    const comment = comments.find(comment => comment.id === 823423);
+    console.log(comment);
+
+    // Array.prototype.findIndex()
+    // Find the comment with this ID
+    const index = comments.findIndex(comment => comment.id === 823423);
+    console.log(index);
+
+    // Delete the comment with the ID of 823423 (2 ways)
+    const newComments = [
+      ...comments.slice(0, index),
+      ...comments.slice(index + 1)
+    ]; // ... spreads inner array to outer array, getting rid of double arrays
+    console.table(newComments)
+
+    comments.splice(index, 1);
+    console.table(comments)
+
+  </script>
+</body>
+</html>
