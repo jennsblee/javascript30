@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <title>Document</title>
+</head>
+<body>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <input class="form-check-input me-1" type="checkbox">
+      <label>This is an inbox layout</label>
+    </li>
+    <li class="list-group-item">
+      <input class="form-check-input me-1" type="checkbox">
+      <label>Check one item</label>
+    </li>
+    <li class="list-group-item">
+      <input class="form-check-input me-1" type="checkbox">
+      <label>Hold down your shift key</label>
+    </li>
+    <li class="list-group-item">
+      <input class="form-check-input me-1" type="checkbox">
+      <label>Check another item</label>
+    </li>
+    <li class="list-group-item">
+      <input class="form-check-input me-1" type="checkbox">
+      <label>Everything in between should also be checked</label>
+    </li>
+    <li class="list-group-item">
+      <input class="form-check-input me-1" type="checkbox">
+      <label>Spam Email</label>
+    </li>
+    <li class="list-group-item">
+      <input class="form-check-input me-1" type="checkbox">
+      <label>Bills Bills Bills</label>
+    </li>
+    <li class="list-group-item">
+      <input class="form-check-input me-1" type="checkbox">
+      <label>Student Loans</label>
+    </li>
+    <li class="list-group-item">
+      <input class="form-check-input me-1" type="checkbox">
+      <label>Advertisement</label>
+    </li>
+  </ul>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+    body {
+      background: #ffeebb;
+    }
+    ul {
+      width: 500px;
+      margin: 20px auto;
+      box-shadow: 0 0 3px #ee9595;
+    }
+    .list-group-item {
+      font-family: 'Roboto', sans-serif;
+      color: #433520;
+      background: #ffdcb8;
+    }
+    .form-check-input:checked {
+      background: #ee9595;
+      border: 1px #ffc1b6 solid;
+    }
+  </style>
+
+  <script>
+    const checkboxes = document.querySelectorAll('.list-group input[type="checkbox"]');
+
+    let lastChecked; // use let because last checked will change every time
+    function handleCheck(e) {
+      let inBetween = false;
+      // check if they have shift key down
+      if(e.shiftKey && this.checked) {
+        //loop over every single checkbox
+        checkboxes.forEach(checkbox => {
+          if(checkbox === this || checkbox === lastChecked) {
+            inBetween = !inBetween; // the first one will change this to true and last one will change it back to false
+          }
+
+          // while inBetween is true, check the boxes
+          if(inBetween) {
+            checkbox.checked = true;
+          }
+        });
+      }
+      lastChecked = this;
+    }
+
+    checkboxes.forEach(checkbox => checkbox.addEventListener('click',
+      handleCheck));
+  </script>
+</body>
+</html>
