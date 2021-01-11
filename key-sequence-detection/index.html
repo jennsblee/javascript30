@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Key Detection</title>
+  <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+  <script>
+    // KONAMI CODE: up up down down left right left right B A
+    const pressed = [];
+    const secretCode = 'jennlee';
+
+    window.addEventListener('keyup', (e) => {
+      pressed.push(e.key); // pushes it into pressed array
+      // from the back up 7 letters delete all that comes beforehand
+      pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length) // from the back up 7 letters (since we are only looking for 6 letters of secretCode)
+      if (pressed.join('').includes(secretCode)) {
+        console.log('DING DING');
+        cornify_add(); // will add unicorns to your page 😚
+      }
+    })
+  </script>
+</body>
+</html>
