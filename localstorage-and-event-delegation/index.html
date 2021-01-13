@@ -57,8 +57,12 @@
     }
 
     function toggleDone(e) {
-      console.log(e);
-
+      if (!e.target.matches('input')) return; // skip this function unless it's an input
+      const el = e.target;
+      const index = el.dataset.index;
+      items[index].done = !items[index].done;
+      localStorage.setItem('items', JSON.stringify(items)); // save current status of items
+      populateList(items, itemsList); // repopulate list to change the visibility of list
     }
 
     addItems.addEventListener('submit', addItem);
@@ -72,6 +76,9 @@
     // think of <ul> ad responsible parent who understands directions who passes it to whatever <li> children it has
     itemsList.addEventListener('click', toggleDone);
 
+
+
+    // IF BORED ADD CHECK ALL, UNCHECK ALL, CLEAR ITEMS BUTTONS
   </script>
 </body>
 </html>
