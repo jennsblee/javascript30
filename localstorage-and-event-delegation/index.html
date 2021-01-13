@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <img src="dish.svg" alt="dish logo">
+  <!-- persisting state even after page refresh with local storage -->
+  <!-- event delegation -->
+  <div class="wrapper">
+    <h2>LOCAL TAPAS</h2>
+    <p></p>
+    <ul class="plates">
+      <li>Loading Tapas...</li>
+    </ul>
+    <form class="add-items">
+      <input type="text" name="item" placeholder="Item Name" required>
+      <input type="submit" value="+ Add Item">
+    </form>
+  </div>
+
+
+  <script>
+    const addItems = document.querySelector('.add-items');
+    const itemsList = document.querySelector('.plates');
+    const items = JSON.parse(localStorage.getItem('items')) || [];
+
+    function addItem(e) {
+      // stops the page automatically refreshing by defult of form submit
+      e.preventDefault();
+      const text = (this.querySelector('[name=item]')).value; // this is the form tag (you need the inputs value)
+      const item = {
+        text, // ES6 shorthand for text: text
+        done: false
+      };
+      items.push(item);
+      populateList(items, itemsList);
+      localStorage.setItem('items', JSON.stringify(items)); // ( key(what the data will be called), what will you set the data to ) // the second element cannot be items array because you can only use strings in localStorage
+      // JSON.parse(localStorage.getItem('items')) will bring it back to the object
+      this.reset(); // .reset() clears input in form elements
+    }
+
+    // this function updates the entire list everytime, if you add animations etc and worried about functions, think about updating just that added item
+    function populateList(plates = [], platesList) { // =[] if you forget to pass in something it will not break but instead loop over nothing
+    // did not directly grab from variables above items & itemsList so that this function would work with any array of plates and detination HTML - in the future, if you would want another array/list, you can still use this function
+      platesList.innerHTML = plates.map((plate, i) => {
+        return `
+          <li>
+            <input type="checkbox" data-index=${i} id="item${i}" ${plate.done ? 'checked' : ''} />
+            <label for="item${i}">${plate.text}</label>
+          </li>
+      `}).join(''); // because map returns an array and we need to make it a one big string
+      // for="" in label links the input and the label together
+    }
+
+    function toggleDone(e) {
+      console.log(e);
+
+    }
+
+    addItems.addEventListener('submit', addItem);
+
+    populateList(items, itemsList); // items does not exist on page load so you have to fetch it from local storage when const items above or start with an empty array
+
+    // const checkBoxes = document.querySelectorAll('input');
+    // checkBoxes.forEach(input => input.addEventListener('click', () => alert('hi')));
+    // DOES NOT WORK when new items are added because it happens after the event listener happened
+
+    // think of <ul> ad responsible parent who understands directions who passes it to whatever <li> children it has
+    itemsList.addEventListener('click', toggleDone);
+
+  </script>
+</body>
+</html>
