@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Teko&display=swap');
+    html {
+      background: url(https://images.unsplash.com/photo-1491252645376-253f0f174d78?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OHx8YmFuZHN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60);
+      background-size: cover;
+      font-family: 'Teko', sans-serif;
+      font-size: 22px;
+    }
+
+    ul {
+      text-align: center;
+      list-style: none;
+      width: 300px;
+      margin: 50px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.7);
+    }
+  </style>
+
+  <ul id="bands"></ul>
+
+  <script>
+    // sort them without "The", "An", etc (articles)
+
+    const bands = ["The Beatles", "The Beach Boys", "Nirvana", "Fleetwood Mac", "Queen", "Green Day", "Marroon 5", "Arctic Monkeys", "Bon Jovi", "Kings of Leon", "Mumford & Sons", "Paramore", "Radiohead", "Blink-182", "Panic! at the Disco"];
+
+    function strip(bandName) {
+      return bandName.replace(/^(a |the |an )/i, "").trim() // get rid of extra white space
+    }
+
+    const sortedBands = bands.sort((a, b) => strip(a) > strip(b) ? 1 : -1);
+    // make sure to use strip in if statement and not actually modifying the bands array
+
+    document.querySelector("#bands").innerHTML =
+    sortedBands
+    .map(band => `<li>${band}</li>`)
+    .join(""); // without join, commas show up between bands
+
+  </script>
+</body>
+</html>
