@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+
+html {
+  box-sizing: border-box;
+  font-family: 'Yusei Magic', sans-serif;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 10px;
+  background-color: #f0c38e;
+}
+
+body {
+  background-color: #f0c38e;
+}
+
+.photobooth {
+  box-shadow: 0 0 7px rgba(0,0,0,0.2);
+  background: #ffeebb;
+  max-width: 50rem;
+  margin: 2rem auto;
+  border-radius: 2px;
+}
+
+/*clearfix*/
+.photobooth:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
+}
+
+.photo {
+  width: 100%;
+  float: left;
+}
+
+.player {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width:150px;
+  box-shadow: 0 0 7px rgba(0,0,0,0.2);
+}
+
+.btn {
+  background-color: #6a492b;
+  color: white;
+  cursor: pointer;
+  margin: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+input[type="range"] {
+  cursor: pointer;
+  overflow: hidden;
+  width: 100px;
+  -webkit-appearance: none;
+  border-radius: 5px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  width: 5px;
+  -webkit-appearance: none;
+  height: 9px;
+  background: #a3d2ca;
+  box-shadow: -80px 0 0 80px #6f9eaf;
+}
+
+/*
+  Strip!
+*/
+
+.strip {
+  padding: 2rem;
+}
+
+.strip img {
+  width: 100px;
+  overflow-x: scroll;
+  padding: 0.8rem 0.8rem 2.5rem 0.8rem;
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  background: white;
+}
+
+.strip a:nth-child(5n+1) img { transform: rotate(10deg); }
+.strip a:nth-child(5n+2) img { transform: rotate(-2deg); }
+.strip a:nth-child(5n+3) img { transform: rotate(8deg); }
+.strip a:nth-child(5n+4) img { transform: rotate(-11deg); }
+.strip a:nth-child(5n+5) img { transform: rotate(12deg); }
