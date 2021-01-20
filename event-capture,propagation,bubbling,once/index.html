@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Understanding JavaScript's Capture</title>
+</head>
+<body>
+
+  <div class="one">
+    <div class="two">
+      <div class="three">
+      </div>
+    </div>
+  </div>
+
+  <style>
+    html {
+      box-sizing: border-box;
+    }
+
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+    div {
+      width: 100%;
+      padding: 100px;
+    }
+
+    .one {
+      background: thistle;
+    }
+
+    .two {
+      background: mistyrose;
+    }
+
+    .three {
+      background: coral;
+    }
+  </style>
+  <button></button>
+  <script>
+    const divs = document.querySelectorAll('div');
+    const button = document.querySelector('button');
+
+    function logText(e) {
+      console.log(this.classList.value);
+      // bubbling: (bubbles up) triggers/fires three -> two -> one
+      // e.stopPropagation(); // stop bubbling: stops event triggering on its parents
+    }
+
+    divs.forEach(div => div.addEventListener('click', logText, {
+      capture: false,
+      once: true // listens to click ONCE then unbinds; only one trigger possible
+      // capture: if true (goes top down) one -> two -> three
+      // capture: false by default
+    }));
+
+    button.addEventListener('click', () => {
+      console.log('CLICKED');
+    }, {
+      once: true
+      // maybe use it in store check out buttons where you do not want them to checkout more than once
+    });
+  </script>
+</body>
+</html>
