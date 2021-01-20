@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
+
+html {
+  font-size: 10px;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  background-color: #5c6e91;
+}
+
+.voiceinator {
+  padding: 2rem;
+  width: 50rem;
+  margin: 0 auto;
+  border-radius: 1rem;
+  position: relative;
+  background-color: #ffffff;
+  background-image: linear-gradient(to left, #d7e1ec 0%, #fbf8f8 14%);
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 0 0 5px 5px rgba(0,0,0,0.1);
+  font-family: 'Oswald', sans-serif;
+}
+
+
+h1 {
+  padding-bottom: 20px;
+  border-bottom: 2px solid #d7e1ec;
+  font-weight: 200;
+  color: #9ea5ad;
+}
+
+.voiceinator input,
+.voiceinator button,
+.voiceinator select,
+.voiceinator textarea {
+  font-family: 'Oswald', sans-serif;
+  color: #75797d;
+  width: 100%;
+  display: block;
+  margin: 10px 0;
+  padding: 10px;
+  border: 0;
+  font-size: 20px;
+  background: #f0f0f3;
+  outline: 0;
+}
+
+.voiceinator button {
+  border: 0;
+  width: 49%;
+  float: left;
+  font-family: 'Pacifico', cursive;
+  margin-bottom: 0;
+  font-size: 2rem;
+  border: 1px solid #d7e1ec;
+  cursor: pointer;
+  position: relative;
+}
+
+.voiceinator button:active {
+  top: 2px;
+}
+
+.voiceinator button:nth-of-type(1) {
+  margin-right: 2%;
+}

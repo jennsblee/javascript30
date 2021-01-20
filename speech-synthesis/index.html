@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Voiceinator 5000</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="voiceinator">
+
+    <h1>THE VOICEINATOR 5000</h1>
+
+    <select name="voice" id="voices">
+      <option value="">Select A Voice</option>
+    </select>
+
+    <label for="rate">Rate:</label>
+    <input name="rate" type="range" min="0" max="3" value="1" step="0.1">
+
+    <label for="pitch">Pitch:</label>
+    <input name="pitch" type="range" min="0" max="2" value="1" step="0.1">
+
+    <textarea name="text">Hello, what would you like to say?</textarea>
+    <button id="speak">►</button>
+    <button id="stop">◼︎</button>
+
+  </div>
+
+  <script>
+    const msg = new SpeechSynthesisUtterance(); // has info on what the will say, rate, pitch, and voice
+    let voices = [];
+    const voicesDropdown = document.querySelector('[name="voice"]');
+    const options = document.querySelectorAll('[type="range"], [name="text"]');
+    const speakButton = document.querySelector('#speak');
+    const stopButton = document.querySelector('#stop')
+    msg.text = document.querySelector('[name="text"]').value;
+
+    function populateVoices() {
+      voices = this.getVoices();
+      voicesDropdown.innerHTML =  voices
+        // .filter(voice => voice.lang.inclues('en')) if you were to filter by a language
+        .map(voice => `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`)
+        .join('');
+    }
+
+    function setVoice() {
+      msg.voice = voices.find(voice => voice.name === this.value);
+      toggle();
+    }
+
+    function toggle(startOver = true) {
+      speechSynthesis.cancel();
+      if (startOver) {
+        speechSynthesis.speak(msg);
+      }
+      // if toggle(false) is called, it will cancel the speech but not startOver with a new language
+    }
+
+    function setOption() {
+      msg[this.name] = this.value
+      toggle();
+    }
+
+    // speechSynthesis.speak(msg) to call on the global variable
+    speechSynthesis.addEventListener('voiceschanged', populateVoices);
+    voicesDropdown.addEventListener('change', setVoice);
+    options.forEach(option => option.addEventListener('change', setOption));
+    speakButton.addEventListener('click', toggle);
+    stopButton.addEventListener('click', toggle.bind(null, false));
+    // or () => toggle(false)
+    // toggle(false) fires on page load so it won't work as a button
+  </script>
+</body>
+</html>
