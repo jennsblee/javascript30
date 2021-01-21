@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Follow Along Nav</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Jenn's Page</h2>
+  <nav class="top">
+    <div class="dropdownBackground">
+      <span class="arrow"></span>
+    </div>
+
+    <ul class="cool">
+      <!-- These <li>'s are the triggers to be hovered over -->
+      <li>
+        <!-- cannot be <a> links because when hovered on items below the links, it is not hovering on the link anymore -->
+        <a href="">About Me</a>
+        <div class="dropdown dropdown1">
+          <div class="bio">
+            <img src="pic.png" alt="picture of jenn">
+            <p>Jenn loves to code, read, and eat.</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <a href="">Courses</a>
+        <ul class="dropdown courses">
+          <li>
+            <span class="code">RFB</span>
+            <a href="">React For Beginners</a>
+          </li>
+          <li>
+            <span class="code">ES6</span>
+            <a href="">ES6 For Everyone</a>
+          </li>
+          <li>
+            <span class="code">NODE</span>
+            <a href="">Learn Node</a>
+          </li>
+          <li>
+            <span class="code">STPU</span>
+            <a href="">Sublime Text Power User</a>
+          </li>
+          <li>
+            <span class="code">WTF</span>
+            <a href="">What The Flexbox?!</a>
+          </li>
+          <li>
+            <span class="code">GRID</span>
+            <a href="">CSS Grid</a>
+          </li>
+          <li>
+            <span class="code">LRX</span>
+            <a href="">Learn Redux</a>
+          </li>
+          <li>
+            <span class="code">CLPU</span>
+            <a href="">Command Line Power User</a>
+          </li>
+          <li>
+            <span class="code">MMD</span>
+            <a href="">Mastering Markdown</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="">Other Links</a>
+        <ul class="dropdown dropdown3">
+          <li><a class="button" href="twitter">Twitter</a></li>
+          <li><a class="button" href="facebook">Facebook</a></li>
+          <li><a class="button" href="">Blog</a></li>
+          <li><a class="button" href="courses">Course Catalog</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <script>
+    const triggers = document.querySelectorAll('.cool > li');
+    const background = document.querySelector('.dropdownBackground');
+    const nav = document.querySelector('.top');
+
+    function handleEnter() {
+      /* display: none -> block and opacity: 0 -> 1 done separately for smooth transition & animation */
+      this.classList.add('trigger-enter');
+      setTimeout(() => this.classList.contains('trigger-enter') && this.classList.add('trigger-enter-active')
+        /* same as if (this.classList.contains('trigger-enter')) {
+          this.classList.add('trigger-enter-active')
+        } */
+      , 150);
+      background.classList.add('open');
+
+      // you need to find that one's dropdown that the handle is on
+      const dropdown = this.querySelector('.dropdown');
+      // returns a DOMRect object providing information about the size of an element and its position relative to the viewport.
+      const dropdownCoords = dropdown.getBoundingClientRect();
+      // you can't assume that dropdownCoords is always the same as it's page load's or always anchored to the top
+      const navCoords = nav.getBoundingClientRect();
+
+      const coords = {
+        height: dropdownCoords.height,
+        width: dropdownCoords.width,
+        top: dropdownCoords.top - navCoords.top,
+        left: dropdownCoords.left - navCoords.left
+      }
+
+      background.style.setProperty('width', `${coords.width}px`);
+      background.style.setProperty('height', `${coords.height}px`);
+      // this is faster than the bottom option
+      background.style.setProperty('transform', `translate(${coords.left}px, ${coords.top}px`);
+      // background.style.setProperty('top', `${coords.top}px`);
+      // background.style.setProperty('left', `${coords.left}px`);
+    }
+
+    function handleLeave() {
+      this.classList.remove('trigger-enter', 'trigger-enter-active');
+      background.classList.remove('open');
+    }
+
+    triggers.forEach(li => li.addEventListener('mouseenter', handleEnter));
+    triggers.forEach(li => li.addEventListener('mouseleave', handleLeave));
+  </script>
+</body>
+</html>
